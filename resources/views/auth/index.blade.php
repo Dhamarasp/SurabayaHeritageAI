@@ -1,74 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>SurabayaAI - Autentikasi</title>
-    @vite('resources/css/app.css')
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* Animation Classes */
-        .slide-enter-active {
-            transition: all 0.5s ease-out;
-        }
-        
-        .slide-leave-active {
-            transition: all 0.5s ease-in;
-        }
-        
-        .slide-enter-from-right {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        
-        .slide-leave-to-left {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-        
-        .slide-enter-from-left {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-        
-        .slide-leave-to-right {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        
-        /* Background Pattern */
-        .bg-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-gray-800 text-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 transition-transform duration-300 hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-                <a href="/" class="text-2xl font-bold">SurabayaAI</a>
-            </div>
+@extends('app')
+@section('title', 'Authenticate')
+    
+@section('style')
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Animation Classes */
+    .slide-enter-active {
+        transition: all 0.5s ease-out;
+    }
+    
+    .slide-leave-active {
+        transition: all 0.5s ease-in;
+    }
+    
+    .slide-enter-from-right {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    
+    .slide-leave-to-left {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    
+    .slide-enter-from-left {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    
+    .slide-leave-to-right {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    
+    /* Background Pattern */
+    .bg-pattern {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+</style>
+@endsection
 
-            <div class="flex items-center">
-                <a href="/" class="hover:text-gray-300 transition duration-300 flex items-center group">
-                    <span>Back</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 transform transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </header>
+@section('content')
 
     <!-- Main Content -->
     <main class="flex-1 flex items-center justify-center py-24 px-4" 
@@ -292,12 +267,8 @@
             </div>
         </div>
     </main>
+@endsection
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-sm">© {{ date('Y') }} SurabayaAI. Hak Cipta Dilindungi.</p>
-        </div>
-    </footer>
-</body>
-</html>
+@section('script')
+    
+@endsection

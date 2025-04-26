@@ -1,25 +1,24 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-});
+// Home route
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Guest routes
 Route::middleware('guest')->group(function(){
-    Route::get('/login', [AuthController::class, 'form'])->name('auth');
+    Route::get('/login', [AuthController::class, 'index'])->name('auth');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
 // Authenticated routes
 Route::middleware('auth')->group(function(){
-    Route::get('/chat', function () {
-        return view('chatbot');
-    })->name('chat');
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat');
     
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
