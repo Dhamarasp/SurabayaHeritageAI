@@ -107,7 +107,7 @@
                             <p class="text-gray-600 mt-2">Masuk untuk menjelajahi sejarah Surabaya</p>
                         </div>
 
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="mb-6">
@@ -178,7 +178,7 @@
                             <p class="text-gray-600 mt-2">Buat akun untuk menjelajahi sejarah Surabaya</p>
                         </div>
 
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
 
                             <div class="mb-6">
@@ -193,6 +193,9 @@
                                         class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300">
                                 </div>
                                 @error('name')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                                @error('role_id')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror
                             </div>

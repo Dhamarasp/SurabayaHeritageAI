@@ -249,7 +249,7 @@
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">Discover Surabaya's Rich History with AI</h2>
                 <p class="text-xl mb-8">Ask any question about Surabaya's past and get accurate, insightful answers powered by advanced AI technology.</p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="/chat" class="bg-white text-gray-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Try Now</a>
+                    <a href="{{ route('chat') }}" class="bg-white text-gray-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Try Now</a>
                 </div>
             </div>
             <div class="md:w-1/2 flex justify-center">

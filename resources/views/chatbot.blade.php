@@ -185,7 +185,7 @@
 
             <div class="hidden md:flex items-center relative" x-data="{ userMenuOpen: false }">
     <button @click="userMenuOpen = !userMenuOpen" class="hover:text-gray-300 transition duration-300 flex items-center space-x-1 focus:outline-none">
-        <span>Dhamar</span>
+        <span>{{ Auth::user()->name }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300" :class="userMenuOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -224,14 +224,26 @@
         
         <div class="border-t border-gray-100 my-1"></div>
         
-        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span>Logout</span>
+                </div>
+            </button>
+        </form>
+
+        {{-- <a href="" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out">
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
                 <span>Logout</span>
             </div>
-        </a>
+        </a> --}}
     </div>
 </div>
         </div>
@@ -246,7 +258,7 @@
             {{-- @auth --}}
 <div x-data="{ mobileUserMenuOpen: false }" class="block py-2 hover:text-gray-300 pt-5">
     <button @click="mobileUserMenuOpen = !mobileUserMenuOpen" class="flex items-center justify-between w-full">
-        <span>Dhamar</span>
+        <span>{{ Auth::user()->name }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300" :class="mobileUserMenuOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -393,8 +405,8 @@
             </svg>
         </div>
         <div>
-            <p class="font-medium text-gray-800">Dhamar</p>
-            <p class="text-xs text-gray-500">Dhamar@gmail.com</p>
+            <p class="font-medium text-gray-800">{{ Auth::user()->name }}</p>
+            <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
         </div>
         <a href="/profile" class="ml-auto text-gray-500 hover:text-gray-700 transition-colors duration-200">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
