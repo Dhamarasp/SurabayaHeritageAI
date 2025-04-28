@@ -49,7 +49,7 @@ class AuthController extends Controller
     
         // Redirect sesuai role
         if ($user->role_id == 1) {
-            return view('admin.dashboard'); // ganti ke route admin sebenarnya
+            return redirect()->route('admin.dashboard');
         }
     
         return redirect()->intended(route('chat'));
