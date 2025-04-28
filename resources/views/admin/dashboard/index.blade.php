@@ -29,7 +29,14 @@
 @endsection
 
 @section('content')
-<div class="mb-6">
+<div class="mb-6" x-init="
+    @if(session('success'))
+        showToast('{{ session('success') }}', 'success');
+    @endif
+    @if(session('error'))
+        showToast('{{ session('error') }}', 'error');
+    @endif
+">
     <h1 class="text-3xl font-bold text-gray-800 mb-2">Dashboard</h1>
     <p class="text-gray-600">Welcome to the SurabayaAI admin panel.</p>
 </div>

@@ -18,7 +18,14 @@
 @endsection
 
 @section('content')
-<div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4" x-init="
+    @if(session('success'))
+        showToast('{{ session('success') }}', 'success');
+    @endif
+    @if(session('error'))
+        showToast('{{ session('error') }}', 'error');
+    @endif
+">
     <div>
         <h1 class="text-3xl font-bold text-gray-800 mb-2">Users</h1>
         <p class="text-gray-600">Manage user accounts</p>

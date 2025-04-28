@@ -54,20 +54,16 @@
                   this.direction = this.isLogin ? 'right' : 'left';
                   this.isLogin = !this.isLogin;
               }
-          }">
-        <div class="w-full max-w-4xl">
+          }"
+          x-init="
             @if(session('error'))
-                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded" role="alert">
-                    <p>{{ session('error') }}</p>
-                </div>
+                showToast('{{ session('error') }}', 'error');
             @endif
-
             @if(session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded" role="alert">
-                    <p>{{ session('success') }}</p>
-                </div>
+                showToast('{{ session('success') }}', 'success');
             @endif
-
+          ">
+        <div class="w-full max-w-4xl">
             <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-2xl overflow-hidden">
                 <!-- Form Section -->
                 <div class="w-full md:w-1/2 p-8 relative overflow-hidden">

@@ -325,206 +325,210 @@
 @section('script')
 <script>
     document.addEventListener('alpine:init', () => {
-        Alpine.data('chatApp', () => ({
-            mobileMenuOpen: false,
-            mobileSidebarOpen: false,
-            messages: [
-                { id: 1, sender: 'user', text: 'Ceritakan tentang Pertempuran 10 November di Surabaya.' },
-                { id: 2, sender: 'ai', text: 'Pertempuran 10 November 1945 atau dikenal sebagai Pertempuran Surabaya adalah salah satu pertempuran terbesar dan terpenting dalam Revolusi Nasional Indonesia. Pertempuran ini terjadi di kota Surabaya, Jawa Timur, antara pasukan Indonesia melawan pasukan Britania Raya dan India Britania.' },
-                { id: 3, sender: 'user', text: 'Siapa tokoh penting dalam pertempuran tersebut?' },
-                { id: 4, sender: 'ai', text: 'Beberapa tokoh penting dalam Pertempuran 10 November 1945 adalah:\n\n1. Bung Tomo (Sutomo) - Pemimpin perjuangan yang terkenal dengan pidato-pidato berapi-apinya melalui radio untuk membakar semangat perjuangan rakyat Surabaya.\n\n2. Gubernur Suryo - Gubernur Jawa Timur saat itu yang menolak ultimatum Inggris.\n\n3. Brigadir Jenderal A.W.S. Mallaby - Komandan pasukan Inggris yang tewas dalam insiden sebelum pertempuran besar.' }
-            ],
-            conversations: [
-                { id: 1, title: 'Pertempuran 10 November', date: '2 hari lalu', active: true },
-                { id: 2, title: 'Sejarah Tugu Pahlawan', date: '1 minggu lalu', active: false },
-                { id: 3, title: 'Asal-usul nama Surabaya', date: '2 minggu lalu', active: false },
-                { id: 4, title: 'Peran Surabaya dalam kemerdekaan', date: '1 bulan lalu', active: false }
-            ],
-            topics: [
-                { id: 1, title: 'Tokoh Pahlawan Surabaya' },
-                { id: 2, title: 'Monumen Bersejarah' },
-                { id: 3, title: 'Peristiwa Penting di Surabaya' },
-                { id: 4, title: 'Budaya dan Tradisi Surabaya' },
-                { id: 5, title: 'Kuliner Khas Surabaya' }
-            ],
-            newMessage: '',
-            isTyping: false,
-            currentText: '',
-            typingSpeed: 30,
-            showDeleteModal: false,
-            conversationToDelete: null,
-        
-            init() {
-                this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
-            },
-        
-            confirmDeleteConversation(id) {
-                this.conversationToDelete = id;
-                this.showDeleteModal = true;
-            },
-        
-            deleteConversation() {
-                if (this.conversationToDelete) {
-                    // Find the conversation to delete
-                    const index = this.conversations.findIndex(c => c.id === this.conversationToDelete);
+        Alpine.data('chatApp', chatApp);
+    });
+
+function chatApp() {
+    return {
+        mobileMenuOpen: false,
+        mobileSidebarOpen: false,
+        messages: [
+            { id: 1, sender: 'user', text: 'Ceritakan tentang Pertempuran 10 November di Surabaya.' },
+            { id: 2, sender: 'ai', text: 'Pertempuran 10 November 1945 atau dikenal sebagai Pertempuran Surabaya adalah salah satu pertempuran terbesar dan terpenting dalam Revolusi Nasional Indonesia. Pertempuran ini terjadi di kota Surabaya, Jawa Timur, antara pasukan Indonesia melawan pasukan Britania Raya dan India Britania.' },
+            { id: 3, sender: 'user', text: 'Siapa tokoh penting dalam pertempuran tersebut?' },
+            { id: 4, sender: 'ai', text: 'Beberapa tokoh penting dalam Pertempuran 10 November 1945 adalah:\n\n1. Bung Tomo (Sutomo) - Pemimpin perjuangan yang terkenal dengan pidato-pidato berapi-apinya melalui radio untuk membakar semangat perjuangan rakyat Surabaya.\n\n2. Gubernur Suryo - Gubernur Jawa Timur saat itu yang menolak ultimatum Inggris.\n\n3. Brigadir Jenderal A.W.S. Mallaby - Komandan pasukan Inggris yang tewas dalam insiden sebelum pertempuran besar.' }
+        ],
+        conversations: [
+            { id: 1, title: 'Pertempuran 10 November', date: '2 hari lalu', active: true },
+            { id: 2, title: 'Sejarah Tugu Pahlawan', date: '1 minggu lalu', active: false },
+            { id: 3, title: 'Asal-usul nama Surabaya', date: '2 minggu lalu', active: false },
+            { id: 4, title: 'Peran Surabaya dalam kemerdekaan', date: '1 bulan lalu', active: false }
+        ],
+        topics: [
+            { id: 1, title: 'Tokoh Pahlawan Surabaya' },
+            { id: 2, title: 'Monumen Bersejarah' },
+            { id: 3, title: 'Peristiwa Penting di Surabaya' },
+            { id: 4, title: 'Budaya dan Tradisi Surabaya' },
+            { id: 5, title: 'Kuliner Khas Surabaya' }
+        ],
+        newMessage: '',
+        isTyping: false,
+        currentText: '',
+        typingSpeed: 30,
+        showDeleteModal: false,
+        conversationToDelete: null,
+    
+        init() {
+            this.$nextTick(() => {
+                this.scrollToBottom();
+            });
+        },
+    
+        confirmDeleteConversation(id) {
+            this.conversationToDelete = id;
+            this.showDeleteModal = true;
+        },
+    
+        deleteConversation() {
+            if (this.conversationToDelete) {
+                // Find the conversation to delete
+                const index = this.conversations.findIndex(c => c.id === this.conversationToDelete);
+            
+                if (index !== -1) {
+                    // Check if it's the active conversation
+                    const wasActive = this.conversations[index].active;
                 
-                    if (index !== -1) {
-                        // Check if it's the active conversation
-                        const wasActive = this.conversations[index].active;
-                    
-                        // Remove the conversation
-                        this.conversations.splice(index, 1);
-                    
-                        // If it was active, select another conversation or start a new chat
-                        if (wasActive) {
-                            if (this.conversations.length > 0) {
-                                this.selectConversation(this.conversations[0].id);
-                            } else {
-                                this.startNewChat();
-                            }
+                    // Remove the conversation
+                    this.conversations.splice(index, 1);
+                
+                    // If it was active, select another conversation or start a new chat
+                    if (wasActive) {
+                        if (this.conversations.length > 0) {
+                            this.selectConversation(this.conversations[0].id);
+                        } else {
+                            this.startNewChat();
                         }
                     }
-                
-                    // Close the modal
-                    this.showDeleteModal = false;
-                    this.conversationToDelete = null;
                 }
-            },
-        
-            sendMessage() {
-                if (this.newMessage.trim() === '') return;
+            
+                // Close the modal
+                this.showDeleteModal = false;
+                this.conversationToDelete = null;
+            }
+        },
+    
+        sendMessage() {
+            if (this.newMessage.trim() === '') return;
+            
+            // Add user message
+            this.messages.push({
+                id: this.messages.length + 1,
+                sender: 'user',
+                text: this.newMessage
+            });
+            
+            const userQuestion = this.newMessage;
+            this.newMessage = '';
+            
+            // Scroll to bottom
+            this.$nextTick(() => {
+                this.scrollToBottom();
+            });
+            
+            // Simulate AI thinking
+            this.isTyping = true;
+            
+            // Simulate AI response after delay
+            setTimeout(() => {
+                this.isTyping = false;
                 
-                // Add user message
+                // Add AI response
+                const aiResponse = this.getAIResponse(userQuestion);
                 this.messages.push({
                     id: this.messages.length + 1,
-                    sender: 'user',
-                    text: this.newMessage
+                    sender: 'ai',
+                    text: aiResponse
                 });
-                
-                const userQuestion = this.newMessage;
-                this.newMessage = '';
                 
                 // Scroll to bottom
                 this.$nextTick(() => {
                     this.scrollToBottom();
                 });
-                
-                // Simulate AI thinking
-                this.isTyping = true;
-                
-                // Simulate AI response after delay
-                setTimeout(() => {
-                    this.isTyping = false;
-                    
-                    // Add AI response
-                    const aiResponse = this.getAIResponse(userQuestion);
-                    this.messages.push({
-                        id: this.messages.length + 1,
-                        sender: 'ai',
-                        text: aiResponse
-                    });
-                    
-                    // Scroll to bottom
-                    this.$nextTick(() => {
-                        this.scrollToBottom();
-                    });
-                }, 2000);
-            },
+            }, 2000);
+        },
+        
+        getAIResponse(question) {
+            // This is a simple simulation - in a real app, you'd call your backend API
+            const responses = {
+                'default': 'Terima kasih atas pertanyaan Anda tentang sejarah Surabaya. Saya akan mencoba menjawab dengan informasi yang akurat berdasarkan data sejarah yang tersedia.',
+                'siapa': 'Surabaya memiliki banyak tokoh penting dalam sejarahnya, termasuk Bung Tomo yang memimpin perlawanan pada Pertempuran 10 November 1945, dan Gubernur Suryo yang menjadi pemimpin pemerintahan saat itu.',
+                'apa': 'Surabaya adalah kota terbesar kedua di Indonesia dan memiliki peran penting dalam sejarah kemerdekaan Indonesia. Kota ini dijuluki Kota Pahlawan karena perjuangan rakyatnya melawan penjajah.',
+                'kapan': 'Pertempuran Surabaya terjadi pada tanggal 10 November 1945, yang kini diperingati sebagai Hari Pahlawan di Indonesia.',
+                'dimana': 'Beberapa lokasi bersejarah di Surabaya antara lain Tugu Pahlawan, Hotel Majapahit (dulu Hotel Oranje), Jembatan Merah, dan Monumen Kapal Selam.',
+                'mengapa': 'Surabaya menjadi pusat perlawanan karena semangat juang rakyatnya yang tinggi dan posisi strategisnya sebagai kota pelabuhan penting di Jawa Timur.'
+            };
             
-            getAIResponse(question) {
-                // This is a simple simulation - in a real app, you'd call your backend API
-                const responses = {
-                    'default': 'Terima kasih atas pertanyaan Anda tentang sejarah Surabaya. Saya akan mencoba menjawab dengan informasi yang akurat berdasarkan data sejarah yang tersedia.',
-                    'siapa': 'Surabaya memiliki banyak tokoh penting dalam sejarahnya, termasuk Bung Tomo yang memimpin perlawanan pada Pertempuran 10 November 1945, dan Gubernur Suryo yang menjadi pemimpin pemerintahan saat itu.',
-                    'apa': 'Surabaya adalah kota terbesar kedua di Indonesia dan memiliki peran penting dalam sejarah kemerdekaan Indonesia. Kota ini dijuluki Kota Pahlawan karena perjuangan rakyatnya melawan penjajah.',
-                    'kapan': 'Pertempuran Surabaya terjadi pada tanggal 10 November 1945, yang kini diperingati sebagai Hari Pahlawan di Indonesia.',
-                    'dimana': 'Beberapa lokasi bersejarah di Surabaya antara lain Tugu Pahlawan, Hotel Majapahit (dulu Hotel Oranje), Jembatan Merah, dan Monumen Kapal Selam.',
-                    'mengapa': 'Surabaya menjadi pusat perlawanan karena semangat juang rakyatnya yang tinggi dan posisi strategisnya sebagai kota pelabuhan penting di Jawa Timur.'
-                };
-                
-                // Simple keyword matching
-                for (const [keyword, response] of Object.entries(responses)) {
-                    if (question.toLowerCase().includes(keyword)) {
-                        return response;
-                    }
+            // Simple keyword matching
+            for (const [keyword, response] of Object.entries(responses)) {
+                if (question.toLowerCase().includes(keyword)) {
+                    return response;
                 }
-                
-                return responses.default;
-            },
-            
-            scrollToBottom() {
-                const chatContainer = document.getElementById('chat-messages');
-                if (chatContainer) {
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }
-            },
-            
-            selectConversation(id) {
-                this.conversations.forEach(conv => {
-                    conv.active = (conv.id === id);
-                });
-                
-                // In a real app, you would load the conversation history here
-                // For demo, we'll just reset messages
-                if (id === 1) {
-                    this.messages = [
-                        { id: 1, sender: 'user', text: 'Ceritakan tentang Pertempuran 10 November di Surabaya.' },
-                        { id: 2, sender: 'ai', text: 'Pertempuran 10 November 1945 atau dikenal sebagai Pertempuran Surabaya adalah salah satu pertempuran terbesar dan terpenting dalam Revolusi Nasional Indonesia. Pertempuran ini terjadi di kota Surabaya, Jawa Timur, antara pasukan Indonesia melawan pasukan Britania Raya dan India Britania.' },
-                        { id: 3, sender: 'user', text: 'Siapa tokoh penting dalam pertempuran tersebut?' },
-                        { id: 4, sender: 'ai', text: 'Beberapa tokoh penting dalam Pertempuran 10 November 1945 adalah:\n\n1. Bung Tomo (Sutomo) - Pemimpin perjuangan yang terkenal dengan pidato-pidato berapi-apinya melalui radio untuk membakar semangat perjuangan rakyat Surabaya.\n\n2. Gubernur Suryo - Gubernur Jawa Timur saat itu yang menolak ultimatum Inggris.\n\n3. Brigadir Jenderal A.W.S. Mallaby - Komandan pasukan Inggris yang tewas dalam insiden sebelum pertempuran besar.' }
-                    ];
-                } else if (id === 2) {
-                    this.messages = [
-                        { id: 1, sender: 'user', text: 'Apa itu Tugu Pahlawan?' },
-                        { id: 2, sender: 'ai', text: 'Tugu Pahlawan adalah sebuah monumen yang terletak di pusat kota Surabaya. Monumen ini dibangun untuk memperingati peristiwa Pertempuran 10 November 1945 dan para pahlawan yang gugur dalam perjuangan mempertahankan kemerdekaan Indonesia.' }
-                    ];
-                } else if (id === 3) {
-                    this.messages = [
-                        { id: 1, sender: 'user', text: 'Dari mana asal nama Surabaya?' },
-                        { id: 2, sender: 'ai', text: 'Nama Surabaya berasal dari kata "sura" (hiu) dan "baya" (buaya), yang merujuk pada legenda pertempuran antara kedua hewan tersebut. Legenda ini melambangkan pertempuran antara pasukan Raden Wijaya dari Kerajaan Majapahit melawan pasukan Mongol pada abad ke-13.' }
-                    ];
-                } else {
-                    this.messages = [
-                        { id: 1, sender: 'user', text: 'Bagaimana peran Surabaya dalam kemerdekaan Indonesia?' },
-                        { id: 2, sender: 'ai', text: 'Surabaya memiliki peran yang sangat penting dalam perjuangan kemerdekaan Indonesia. Kota ini menjadi simbol perlawanan rakyat Indonesia terhadap penjajah melalui Pertempuran 10 November 1945. Peristiwa ini menunjukkan tekad dan semangat juang rakyat Indonesia untuk mempertahankan kemerdekaan, sehingga Surabaya dijuluki sebagai Kota Pahlawan.' }
-                    ];
-                }
-                
-                // Close mobile sidebar after selection
-                this.mobileSidebarOpen = false;
-                
-                // Scroll to bottom
-                this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
-            },
-            
-            selectTopic(topic) {
-                this.newMessage = topic.title;
-                // Focus on input
-                this.$nextTick(() => {
-                    document.getElementById('message-input').focus();
-                });
-                
-                // Close mobile sidebar after selection
-                this.mobileSidebarOpen = false;
-            },
-            
-            startNewChat() {
-                // Reset messages
-                this.messages = [];
-                
-                // Reset active conversation
-                this.conversations.forEach(conv => {
-                    conv.active = false;
-                });
-                
-                // Close mobile sidebar
-                this.mobileSidebarOpen = false;
             }
-        }));
-    });
+            
+            return responses.default;
+        },
+        
+        scrollToBottom() {
+            const chatContainer = document.getElementById('chat-messages');
+            if (chatContainer) {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        },
+        
+        selectConversation(id) {
+            this.conversations.forEach(conv => {
+                conv.active = (conv.id === id);
+            });
+            
+            // In a real app, you would load the conversation history here
+            // For demo, we'll just reset messages
+            if (id === 1) {
+                this.messages = [
+                    { id: 1, sender: 'user', text: 'Ceritakan tentang Pertempuran 10 November di Surabaya.' },
+                    { id: 2, sender: 'ai', text: 'Pertempuran 10 November 1945 atau dikenal sebagai Pertempuran Surabaya adalah salah satu pertempuran terbesar dan terpenting dalam Revolusi Nasional Indonesia. Pertempuran ini terjadi di kota Surabaya, Jawa Timur, antara pasukan Indonesia melawan pasukan Britania Raya dan India Britania.' },
+                    { id: 3, sender: 'user', text: 'Siapa tokoh penting dalam pertempuran tersebut?' },
+                    { id: 4, sender: 'ai', text: 'Beberapa tokoh penting dalam Pertempuran 10 November 1945 adalah:\n\n1. Bung Tomo (Sutomo) - Pemimpin perjuangan yang terkenal dengan pidato-pidato berapi-apinya melalui radio untuk membakar semangat perjuangan rakyat Surabaya.\n\n2. Gubernur Suryo - Gubernur Jawa Timur saat itu yang menolak ultimatum Inggris.\n\n3. Brigadir Jenderal A.W.S. Mallaby - Komandan pasukan Inggris yang tewas dalam insiden sebelum pertempuran besar.' }
+                ];
+            } else if (id === 2) {
+                this.messages = [
+                    { id: 1, sender: 'user', text: 'Apa itu Tugu Pahlawan?' },
+                    { id: 2, sender: 'ai', text: 'Tugu Pahlawan adalah sebuah monumen yang terletak di pusat kota Surabaya. Monumen ini dibangun untuk memperingati peristiwa Pertempuran 10 November 1945 dan para pahlawan yang gugur dalam perjuangan mempertahankan kemerdekaan Indonesia.' }
+                ];
+            } else if (id === 3) {
+                this.messages = [
+                    { id: 1, sender: 'user', text: 'Dari mana asal nama Surabaya?' },
+                    { id: 2, sender: 'ai', text: 'Nama Surabaya berasal dari kata "sura" (hiu) dan "baya" (buaya), yang merujuk pada legenda pertempuran antara kedua hewan tersebut. Legenda ini melambangkan pertempuran antara pasukan Raden Wijaya dari Kerajaan Majapahit melawan pasukan Mongol pada abad ke-13.' }
+                ];
+            } else {
+                this.messages = [
+                    { id: 1, sender: 'user', text: 'Bagaimana peran Surabaya dalam kemerdekaan Indonesia?' },
+                    { id: 2, sender: 'ai', text: 'Surabaya memiliki peran yang sangat penting dalam perjuangan kemerdekaan Indonesia. Kota ini menjadi simbol perlawanan rakyat Indonesia terhadap penjajah melalui Pertempuran 10 November 1945. Peristiwa ini menunjukkan tekad dan semangat juang rakyat Indonesia untuk mempertahankan kemerdekaan, sehingga Surabaya dijuluki sebagai Kota Pahlawan.' }
+                ];
+            }
+            
+            // Close mobile sidebar after selection
+            this.mobileSidebarOpen = false;
+            
+            // Scroll to bottom
+            this.$nextTick(() => {
+                this.scrollToBottom();
+            });
+        },
+        
+        selectTopic(topic) {
+            this.newMessage = topic.title;
+            // Focus on input
+            this.$nextTick(() => {
+                document.getElementById('message-input').focus();
+            });
+            
+            // Close mobile sidebar after selection
+            this.mobileSidebarOpen = false;
+        },
+        
+        startNewChat() {
+            // Reset messages
+            this.messages = [];
+            
+            // Reset active conversation
+            this.conversations.forEach(conv => {
+                conv.active = false;
+            });
+            
+            // Close mobile sidebar
+            this.mobileSidebarOpen = false;
+        }
+    }
+}
 </script>
 @endsection

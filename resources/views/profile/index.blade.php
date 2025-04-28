@@ -42,21 +42,18 @@
 
 @section('content')
     <!-- Main Content -->
-    <div class="min-h-screen" x-data="profileApp()">
+    <div class="min-h-screen" x-data="profileApp()"
+    x-init="
+            @if(session('success'))
+                showToast('{{ session('success') }}', 'success');
+            @endif
+            @if(session('error'))
+                showToast('{{ session('error') }}', 'error');
+            @endif
+         ">
+        
         <main class="flex-1 pt-24 pb-12 px-4">
-            <div class="container mx-auto max-w-4xl bg-red-200">
-                @if(session('success'))
-                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded" role="alert">
-                        <p>{{ session('success') }}</p>
-                    </div>
-                @endif
-    
-                @if(session('error'))
-                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded" role="alert">
-                        <p>{{ session('error') }}</p>
-                    </div>
-                @endif
-    
+            <div class="container mx-auto max-w-4xl">
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <div class="p-6 border-b border-gray-200">
                         <h1 class="text-2xl font-bold text-gray-800">User Profile</h1>

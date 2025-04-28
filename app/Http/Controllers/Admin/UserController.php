@@ -76,7 +76,7 @@ class UserController extends Controller
             'bio' => $validated['bio'] ?? null,
         ]);
         
-        return redirect()->route('admin.user.index')
+        return redirect()->route('user.index')
             ->with('success', 'User created successfully.');
     }
     
@@ -95,6 +95,7 @@ class UserController extends Controller
     
     public function update(Request $request, $id)
     {
+
         $user = User::findOrFail($id);
         
         $validated = $request->validate([

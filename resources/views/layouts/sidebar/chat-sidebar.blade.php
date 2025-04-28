@@ -1,7 +1,9 @@
 <!-- Sidebar -->
 <aside 
 class="bg-white w-full md:w-80 lg:w-96 border-r border-gray-200 flex-shrink-0 fixed md:sticky top-0 bottom-0 left-0 z-40 md:z-0 transform sidebar-transition h-full md:h-auto md:translate-x-0 pt-2"
-:class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+:class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+@toggle-sidebar.window="mobileSidebarOpen = !mobileSidebarOpen"
+style="top: 4rem;">
 
 <div class="flex flex-col h-full">
     <!-- New Chat Button -->
