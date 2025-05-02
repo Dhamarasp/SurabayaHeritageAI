@@ -35,8 +35,6 @@
         @include('layouts.navbar.chat-navbar')
     @elseif(request()->is('profile')) 
         @include('layouts.navbar.profile-navbar')
-    @elseif(!request()->exist)
-        @include('layouts.navbar.auth-navbar')
     @else
         @include('layouts.navbar.home-navbar')
     @endif
