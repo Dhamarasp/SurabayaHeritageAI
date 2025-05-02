@@ -272,9 +272,9 @@
         <div class="bg-gradient-to-b from-gray-600 to-gray-800 text-white py-16 px-6 rounded-xl shadow-xl mb-8 fade-in" x-intersect="$el.classList.add('appear')">
             <div class="flex flex-col md:flex-row items-center justify-center">
                 <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                    <h1 class="text-6xl md:text-8xl font-bold mb-4 error-code">404</h1>
-                    <h2 class="text-2xl md:text-3xl font-semibold mb-4">Halaman Tidak Ditemukan</h2>
-                    <p class="text-lg mb-8 text-gray-300">Maaf, halaman yang Anda cari tidak dapat ditemukan atau telah dipindahkan.</p>
+                    <h1 class="text-6xl md:text-8xl font-bold mb-4 error-code">500</h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-4">Server Error</h2>
+                    <p class="text-lg mb-8 text-gray-300">Maaf, server kami sedang mengalami masalah. Tim kami sedang bekerja untuk memperbaikinya.</p>
                     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                         <a href="{{ route('home') }}" class="bg-white text-gray-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
                             Kembali ke Beranda
@@ -338,8 +338,8 @@
                             <circle cx="120" cy="165" r="3" fill="yellow" opacity="0.8" class="spark spark-4" />
                             
                             <!-- Error text -->
-                            <text x="120" y="60" fill="white" font-size="12" text-anchor="middle" font-family="monospace">ERROR 404</text>
-                            <text x="120" y="200" fill="white" font-size="10" text-anchor="middle" font-family="monospace">NOT FOUND...</text>
+                            <text x="120" y="60" fill="white" font-size="12" text-anchor="middle" font-family="monospace">ERROR 500</text>
+                            <text x="120" y="200" fill="white" font-size="10" text-anchor="middle" font-family="monospace">REPAIRING...</text>
                         </svg>
                     </div>
                 </div>
