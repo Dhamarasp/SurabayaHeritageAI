@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage - SurabayaAI</title>
+    <title>SurabayaAI - Your Guide to Surabaya's History</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -110,7 +110,12 @@
             </nav>
 
             <div class="hidden md:flex items-center">
-                <a href="login.html" class="hover:text-gray-300 transition duration-300">Login</a>
+                @auth
+                <a href="{{ route('chat.index') }}" class="hover:text-gray-300 transition duration-300">{{ Auth::user()->name }}</a>
+                @endauth
+                @guest
+                <a href="{{ route('login') }}" class="hover:text-gray-300 transition duration-300">Login</a>
+                @endguest
             </div>
         </div>
     
@@ -124,7 +129,15 @@
             <a href="#examples" class="block py-2 hover:text-gray-300">Examples</a>
             <a href="#about" class="block py-2 hover:text-gray-300">About</a>
 
-            <a href="login.html" class="block py-2 hover:text-gray-300 pt-5">Login</a>
+            @auth
+                
+            <a href="{{ route('chat.index') }}" class="hover:text-gray-300 transition duration-300">{{ Auth::user()->name }}</a>
+            @endauth
+            @guest
+                
+            <a href="{{ route('login') }}" class="block py-2 hover:text-gray-300 pt-5">Login</a>
+            @endguest
+
         </nav>
     </header>
     
@@ -135,11 +148,11 @@
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">Discover Surabaya's Rich History with AI</h2>
                 <p class="text-xl mb-8">Ask any question about Surabaya's past and get accurate, insightful answers powered by advanced AI technology.</p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="chat.html" class="bg-white text-gray-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Try Now</a>
+                    <a href="{{ route('chat.index') }}" class="bg-white text-gray-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">Try Now</a>
                 </div>
             </div>
             <div class="md:w-1/2 flex justify-center">
-                <img src="images/hero_image.png" alt="Surabaya City Illustration" class="rounded-lg shadow-xl max-w-2xl h-auto float-animation">
+                <img src="{{ asset('images/hero_image.png') }}" alt="Surabaya City Illustration" class="rounded-lg shadow-xl max-w-2xl h-auto float-animation">
             </div>
         </div>
     </section>
@@ -249,8 +262,8 @@
             <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden fade-in pulse-animation">
                 <div class="p-6">
                     <div class="flex items-center mb-6">
-                        <input type="text" placeholder="Ask about Surabaya's history..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300" />
-                        <a href="chatbot.html" class="ml-4 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        <input type="text" placeholder="Ask about Surabaya's history..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300" />
+                        <a href="{{ route('chat.index') }}" class="ml-4 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                             </svg>
@@ -313,7 +326,7 @@
                 </div>
                 <div class="w-full md:w-1/2 fade-in px-4">
                     <img 
-                        src="images/sby_cityscape.jpg" 
+                        src="{{ asset('images/hero_image4.jpg') }}" 
                         alt="Surabaya Cityscape" 
                         class="w-full max-w-md mx-auto rounded-lg shadow-xl h-auto transition-all duration-500 hover:shadow-2xl"
                         loading="lazy"
